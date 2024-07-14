@@ -10,27 +10,26 @@ on:
 jobs:
   SwiftLint:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: api
     steps:
       - uses: actions/checkout@v4
 
       - name: GitHub Action for SwiftLint
         uses: norio-nomura/action-swiftlint@3.2.1
-        working-directory: api
 
       - name: GitHub Action for SwiftLint with --strict
         uses: norio-nomura/action-swiftlint@3.2.1
         with:
           args: --strict
-        working-directory: api
 
       - name: GitHub Action for SwiftLint (Only files changed in the PR)
         uses: norio-nomura/action-swiftlint@3.2.1
         env:
           DIFF_BASE: ${{ github.base_ref }}
-        working-directory: api
 
       - name: GitHub Action for SwiftLint (Different working directory)
         uses: norio-nomura/action-swiftlint@3.2.1
         env:
           WORKING_DIRECTORY: Source
-        working-directory: api
