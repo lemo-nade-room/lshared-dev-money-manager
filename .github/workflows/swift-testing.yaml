@@ -7,7 +7,7 @@ on:
       - 'api/**/*.swift'
 
 jobs:
-  build:
+  small:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -25,24 +25,5 @@ jobs:
           swift-version: "5.10"
 
       - run: swift build
-
-  small:
-    runs-on: ubuntu-latest
-    needs:
-      - build
-    defaults:
-      run:
-        working-directory: ./api
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/cache@v4
-        with:
-          key: swift-build-package-resolved-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Package.resolved') }}
-          path: ${{ github.workspace }}/api/.build
-
-      - uses: swift-actions/setup-swift@v2
-        with:
-          swift-version: "5.10"
 
       - run: swift test
