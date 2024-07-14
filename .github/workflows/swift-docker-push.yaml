@@ -29,5 +29,5 @@ jobs:
         with:
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/lshared-dev-money-manager:staging
-          platforms: linux/amd64,linux/arm64/v8
+          platforms: linux/amd64
           context: ./api/
