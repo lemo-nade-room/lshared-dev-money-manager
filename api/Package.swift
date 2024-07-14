@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "api",
     platforms: [
-        .macOS(.v13)
+        .macOS(.v14)
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.
@@ -28,7 +28,7 @@ let package = Package(
                 .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver"),
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "NIOCore", package: "swift-nio"),
-                .product(name: "NIOPosix", package: "swift-nio")
+                .product(name: "NIOPosix", package: "swift-nio"),
             ],
             swiftSettings: swiftSettings,
             plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
@@ -41,11 +41,11 @@ let package = Package(
             ],
             swiftSettings: swiftSettings,
             plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
-        )
+        ),
     ]
 )
 
 var swiftSettings: [SwiftSetting] { [
     .enableUpcomingFeature("DisableOutwardActorInference"),
-    .enableExperimentalFeature("StrictConcurrency")
+    .enableExperimentalFeature("StrictConcurrency"),
 ] }
