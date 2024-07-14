@@ -1,4 +1,5 @@
 // swift-tools-version:5.10
+import Foundation
 import PackageDescription
 
 let package = Package(
@@ -31,7 +32,7 @@ let package = Package(
                 .product(name: "NIOPosix", package: "swift-nio"),
             ],
             swiftSettings: swiftSettings,
-            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
+            plugins: swiftLintPlugins
         ),
         .testTarget(
             name: "AppTests",
@@ -40,7 +41,7 @@ let package = Package(
                 .product(name: "Testing", package: "swift-testing"),
             ],
             swiftSettings: swiftSettings,
-            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
+            plugins: swiftLintPlugins
         ),
     ]
 )
@@ -49,3 +50,18 @@ var swiftSettings: [SwiftSetting] { [
     .enableUpcomingFeature("DisableOutwardActorInference"),
     .enableExperimentalFeature("StrictConcurrency"),
 ] }
+
+var swiftLintPlugins: [Target.PluginUsage] {
+    Environment.ci ? [] : [
+        .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint"),
+    ]
+}
+
+enum Environment {
+    static func find(_ key: String) -> String? {
+        ProcessInfo.processInfo.environment[key]
+    }
+    static var ci: Bool {
+        find("CI") != nil
+    }
+}
