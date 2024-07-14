@@ -42,6 +42,10 @@ opt_in_rules:
   - vertical_parameter_alignment_on_call
 trailing_comma:
   mandatory_comma: true
+identifier_name:
+  min_length:
+    warning: 1
+    error: 1
 analyzer_rules:
   - unused_declaration
   - capture_variable
