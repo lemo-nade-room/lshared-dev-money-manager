@@ -10,7 +10,9 @@ on:
 jobs:
   SwiftLint:
     runs-on: ubuntu-latest
-    working-directory: api
+    defaults:
+      run:
+        working-directory: api
     steps:
       - uses: actions/checkout@v4
 
