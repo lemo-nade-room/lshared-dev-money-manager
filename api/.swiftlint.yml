@@ -40,12 +40,20 @@ opt_in_rules:
   - toggle_bool
   - unneeded_parentheses_in_closure_argument
   - vertical_parameter_alignment_on_call
+trailing_comma:
+  mandatory_comma: true
+identifier_name:
+  min_length:
+    warning: 1
+    error: 1
 analyzer_rules:
   - unused_declaration
   - capture_variable
   - unused_import
 included:
   - Sources
+  - Tests
+  - Package.swift
 strict: true
 line_length: 120
 reporter: "xcode"

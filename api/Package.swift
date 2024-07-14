@@ -1,10 +1,11 @@
 // swift-tools-version:5.10
+import Foundation
 import PackageDescription
 
 let package = Package(
     name: "api",
     platforms: [
-        .macOS(.v13)
+        .macOS(.v14)
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.
@@ -16,7 +17,9 @@ let package = Package(
         // 🔵 Non-blocking, event-driven networking for Swift. Used for custom executors
         .package(url: "https://github.com/apple/swift-nio.git", from: "2.65.0"),
         // SwiftLint
-        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.55.1")
+        .package(url: "https://github.com/realm/SwiftLint.git", branch: "main"),
+        // SwiftTesting
+        .package(url: "https://github.com/apple/swift-testing.git", from: "0.10.0"),
     ],
     targets: [
         .executableTarget(
@@ -26,24 +29,39 @@ let package = Package(
                 .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver"),
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "NIOCore", package: "swift-nio"),
-                .product(name: "NIOPosix", package: "swift-nio")
+                .product(name: "NIOPosix", package: "swift-nio"),
             ],
             swiftSettings: swiftSettings,
-            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
+            plugins: swiftLintPlugins
         ),
         .testTarget(
             name: "AppTests",
             dependencies: [
                 .target(name: "App"),
-                .product(name: "XCTVapor", package: "vapor")
+                .product(name: "Testing", package: "swift-testing"),
             ],
             swiftSettings: swiftSettings,
-            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
-        )
+            plugins: swiftLintPlugins
+        ),
     ]
 )
 
 var swiftSettings: [SwiftSetting] { [
     .enableUpcomingFeature("DisableOutwardActorInference"),
-    .enableExperimentalFeature("StrictConcurrency")
+    .enableExperimentalFeature("StrictConcurrency"),
 ] }
+
+var swiftLintPlugins: [Target.PluginUsage] {
+    Environment.ci ? [] : [
+        .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint"),
+    ]
+}
+
+enum Environment {
+    static func find(_ key: String) -> String? {
+        ProcessInfo.processInfo.environment[key]
+    }
+    static var ci: Bool {
+        find("CI") != nil
+    }
+}
