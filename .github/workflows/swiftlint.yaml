@@ -19,9 +19,9 @@ jobs:
 
       - name: GitHub Action for SwiftLint with --strict
         uses: norio-nomura/action-swiftlint@3.2.1
-        working-directory: api
         with:
           args: --strict
+        working-directory: api
 
       - name: GitHub Action for SwiftLint (Only files changed in the PR)
         uses: norio-nomura/action-swiftlint@3.2.1
