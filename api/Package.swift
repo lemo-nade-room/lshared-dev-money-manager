@@ -16,7 +16,9 @@ let package = Package(
         // 🔵 Non-blocking, event-driven networking for Swift. Used for custom executors
         .package(url: "https://github.com/apple/swift-nio.git", from: "2.65.0"),
         // SwiftLint
-        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.55.1")
+        .package(url: "https://github.com/realm/SwiftLint.git", branch: "main"),
+        // SwiftTesting
+        .package(url: "https://github.com/apple/swift-testing.git", from: "0.10.0"),
     ],
     targets: [
         .executableTarget(
@@ -35,7 +37,8 @@ let package = Package(
             name: "AppTests",
             dependencies: [
                 .target(name: "App"),
-                .product(name: "XCTVapor", package: "vapor")
+                .product(name: "XCTVapor", package: "vapor"),
+                .product(name: "Testing", package: "swift-testing"),
             ],
             swiftSettings: swiftSettings,
             plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]

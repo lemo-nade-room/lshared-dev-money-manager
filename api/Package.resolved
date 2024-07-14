@@ -1,5 +1,5 @@
 {
-  "originHash" : "a90f77568853a640a1cef2e2ade473e8e4ebc49cbefb33f7c26adf682ae60d1a",
+  "originHash" : "eab20a3c5dd03a8f0bb922eb135aabfc76ac428d996bb33f0cc963657110d07c",
   "pins" : [
     {
       "identity" : "async-http-client",
@@ -276,8 +276,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-syntax.git",
       "state" : {
-        "revision" : "303e5c5c36d6a558407d364878df131c3546fad8",
-        "version" : "510.0.2"
+        "revision" : "55c4e4669c031d697e1924022b8ba250cfde0f2f",
+        "version" : "600.0.0-prerelease-2024-04-02"
       }
     },
     {
@@ -290,12 +290,21 @@
       }
     },
     {
+      "identity" : "swift-testing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-testing.git",
+      "state" : {
+        "revision" : "69d59cfc76e5daf498ca61f5af409f594768eef9",
+        "version" : "0.10.0"
+      }
+    },
+    {
       "identity" : "swiftlint",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/realm/SwiftLint.git",
       "state" : {
-        "revision" : "b515723b16eba33f15c4677ee65f3fef2ce8c255",
-        "version" : "0.55.1"
+        "branch" : "main",
+        "revision" : "67b1aaa2116e8a052614263e8d55b67781dfeb61"
       }
     },
     {
