@@ -48,6 +48,7 @@ analyzer_rules:
   - unused_import
 included:
   - Sources
+  - Tests
 strict: true
 line_length: 120
 reporter: "xcode"
