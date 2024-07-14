@@ -11,14 +11,14 @@ RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
 
 # Set up a build area
 WORKDIR /build
+RUN export CI=true
 
 # First just resolve dependencies.
 # This creates a cached layer that can be reused
 # as long as your Package.swift/Package.resolved
 # files do not change.
 COPY ./Package.* ./
-RUN export CI=true && \
-    swift package resolve \
+RUN swift package resolve \
         $([ -f ./Package.resolved ] && echo "--force-resolved-versions" || true)
 
 # Copy entire repo into container
@@ -26,8 +26,7 @@ COPY . .
 
 # Build everything, with optimizations, with static linking, and using jemalloc
 # N.B.: The static version of jemalloc is incompatible with the static Swift runtime.
-RUN export CI=true && \
-    swift build -c release \
+RUN swift build -c release \
                 --static-swift-stdlib \
                 -Xlinker -ljemalloc
 
